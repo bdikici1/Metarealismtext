@@ -1,0 +1,29 @@
+name: Process Docs Automatically
+
+on:
+  push:
+    branches:
+      - main  # veya çalışacağınız branch
+    paths:
+      - "Docs/**"  # Sadece "Docs/" içindeki dosyaları takip et
+
+jobs:
+  process_docs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Reposu Klonla
+        uses: actions/checkout@v3
+
+      - name: Dosya İşleme (Örnek)
+        run: |
+          echo "Docs klasöründeki değişiklikler algılandı!"
+          ls -lah Docs/
+
+      - name: Commit ve Push (Eğer değişiklik yapıldıysa)
+        run: |
+          git config --global user.name "github-actions-bot"
+          git config --global user.email "actions@github.com"
+          git add Docs/
+          git commit -m "Docs klasörü otomatik güncellendi: $(date)" || echo "Değişiklik yok"
+          git push
