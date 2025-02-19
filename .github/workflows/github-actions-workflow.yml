@@ -1,0 +1,27 @@
+name: Auto Fetch & Process Data
+
+on:
+  push:
+    branches:
+      - main  # veya hangi branch üzerinde işlem yapmak istiyorsan
+
+jobs:
+  fetch_and_process:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Reposu Klonla
+        uses: actions/checkout@v3
+
+      - name: Python Script Çalıştır
+        run: |
+          echo "Dosyalar çekildi!"
+          # Burada dosya işleme kodları çalıştırılabilir.
+
+      - name: Commit ve Push
+        run: |
+          git config --global user.name "github-actions-bot"
+          git config --global user.email "actions@github.com"
+          git add .
+          git commit -m "Otomatik güncelleme: $(date)"
+          git push
